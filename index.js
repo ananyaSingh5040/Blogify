@@ -1,12 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import path from "path";
-import mongoose from "mongoose";
-import userRouter from "./routes/user.js"
+import userRouter from "./routes/user.js";
+import connectDB from "./connect.js";
 dotenv.config();
-mongoose.connect(MONGO_URI)
+connectDB(process.env.MONGO_URI);
 const app = express();
 const PORT= process.env.PORT || 8000;
+
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
 app.set("view engine", "ejs");
 app.set("views",path.resolve("./views"));
